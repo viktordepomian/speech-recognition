@@ -5,8 +5,13 @@ if ("webkitSpeechRecognition" in window) {
 
   const resultDiv = document.getElementById("result");
   const startBtn = document.getElementById("start-btn");
+  const languageSelect = document.getElementById("language-select");
   let isListening = false;
   let finalTranscript = "";
+
+  languageSelect.addEventListener("change", (event) => {
+    recognition.lang = event.target.value;
+  });
 
   const toggleRecognition = () => {
     if (isListening) {
@@ -70,6 +75,8 @@ if ("webkitSpeechRecognition" in window) {
     updateListeningState(isListening);
   });
   recognition.addEventListener("result", updateTranscript);
+
+  recognition.lang = "en-US";
 } else {
   alert("Speech recognition is not supported.");
 }
